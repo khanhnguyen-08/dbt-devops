@@ -17,6 +17,8 @@ on:
 
 env:
   DEVELOPER: "Justin"
+  AWS_ACCESS_KEY_ID: "MY KEY"
+  AWS_SECRET_ACCESS_KEY:  "NOT GONNA WORK"
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
