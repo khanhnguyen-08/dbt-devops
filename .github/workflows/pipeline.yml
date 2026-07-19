@@ -76,6 +76,8 @@ jobs:
         run: dbt docs generate
   
   dbt-deploy-to-dev:
+    needs:
+      - dbt-ci
     runs-on: ubuntu-latest
     environment: dev
     env:
@@ -97,10 +99,12 @@ jobs:
             --delete
   
   dbt-deploy-to-tst:
+    needs:
+      - dbt-deploy-to-dev
     runs-on: ubuntu-latest
     environment: dev
     env:
-      CURRENT_ENV: dev
+      CURRENT_ENV: tst
 
     steps:
       - uses: actions/checkout@v4
@@ -118,10 +122,12 @@ jobs:
             --delete
   
   dbt-deploy-to-prd:
+    needs:
+      - dbt-deploy-to-tst
     runs-on: ubuntu-latest
     environment: dev
     env:
-      CURRENT_ENV: dev
+      CURRENT_ENV: prd
 
     steps:
       - uses: actions/checkout@v4
