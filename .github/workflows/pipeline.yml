@@ -28,6 +28,9 @@ jobs:
     runs-on: ubuntu-latest
     environment: dev
 
+    env:
+      MY_ENVIRONMENT: dev
+
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -50,6 +53,26 @@ jobs:
       - name: Dbt Debug
         working-directory: demo
         run: dbt debug
+
+      - name: Dbt Deps
+        working-directory: demo
+        run: dbt deps
+
+      - name: Dbt Compile
+        working-directory: demo
+        run: dbt compile --target ${{ env.MY_ENVIRONMENT }}
+
+      - name: Dbt Run
+        working-directory: demo
+        run: dbt run
+
+      - name: Dbt Test
+        working-directory: demo
+        run: dbt test
+
+      - name: Dbt Documentation
+        working-directory: demo
+        run: dbt docs generate
       
 
       
