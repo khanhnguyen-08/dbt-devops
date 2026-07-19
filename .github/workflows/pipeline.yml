@@ -17,8 +17,8 @@ on:
 
 env:
   DEVELOPER: "Justin"
-  AWS_ACCESS_KEY_ID: "MY KEY"
-  AWS_SECRET_ACCESS_KEY:  "NOT GONNA WORK"
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -26,6 +26,7 @@ jobs:
   dbt-ci:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    environment: dev
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
