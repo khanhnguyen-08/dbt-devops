@@ -121,9 +121,25 @@ jobs:
           aws s3 sync ${{ env.DBT_PROJECT_NAME }} s3://${{ env.DBT_PROJECT_S3_BUCKET }}/${{ env.CURRENT_ENV }} \
             --delete
   
-  dbt-deploy-to-prd:
+  
+  manual-approval-gate:
     needs:
       - dbt-deploy-to-tst
+    runs-on: ubuntu-latest
+    environment: dev
+    env:
+      CURRENT_ENV: tst
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Auto Approval
+        run: echo "Approved by $DEVELOPER""
+
+
+  dbt-deploy-to-prd:
+    needs:
+      - manual-approval-gate
     runs-on: ubuntu-latest
     environment: dev
     env:
